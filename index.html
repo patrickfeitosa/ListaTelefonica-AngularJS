@@ -7,14 +7,16 @@
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 	<link rel="stylesheet" type="text/css" href="css/ui.css">
 
-	<script type="text/javascript" src="lib/angular.js"></script>
-	<script type="text/javascript" src="lib/angular-messages.js"></script>
-	<script type="text/javascript" src="lib/angular-locale_pt-br.js"></script>	
+	<script type="text/javascript" src="lib/angular/angular.js"></script>
+	<script type="text/javascript" src="lib/angular/angular-messages.js"></script>
+	<script type="text/javascript" src="lib/angular/angular-locale_pt-br.js"></script>	
+	<script type="text/javascript" src="lib/bootstrap/bootstrap.js"></script>	
+	<script type="text/javascript" src="lib/serialGenerator/serialGenerator.js"></script>	
+	<script type="text/javascript" src="lib/uiAccordion/uiAccordion.js"></script>	
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/controller/listaTelefonicaController.js"></script>
 	<script type="text/javascript" src="js/services/contatosAPIService.js"></script>
 	<script type="text/javascript" src="js/services/operadorasAPIService.js"></script>
-	<script type="text/javascript" src="js/services/serialGeneratorService.js"></script>
 	<script type="text/javascript" src="js/config/serialGeneratorConfig.js"></script>
 	<script type="text/javascript" src="js/value/configValue.js"></script>
 	<script type="text/javascript" src="js/filters/nameFilter.js"></script>
@@ -51,7 +53,8 @@
 		<input type="text" class="form-control" ng-model="criterioDeBusca" placeholder="O que você está buscando ?">
 		<table ng-show="contatos.length > 0" class="table table-striped">
 			<tr>
-				<th></th>
+				<th></th>				
+				<th>Serial</th>
 				<th><a href="" ng-click="ordernarPor('nome')">Nome</a></th>
 				<th><a href="" ng-click="ordernarPor('telefone')">Telefone</a></th>
 				<th>Operadora</th>
@@ -59,7 +62,8 @@
 			</tr>
 
 			<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca |orderBy:criterioDeOrdenacao:direcaoOrdenacao">
-				<td><input type="checkbox" ng-model="contato.selecionado"></td>				
+				<td><input type="checkbox" ng-model="contato.selecionado"></td>		
+				<td>{{contato.serial}}</td>		
 				<td>{{contato.nome | name | ellipsis:10}}</td>
 				<td>{{contato.telefone}}</td>
 				<td>{{contato.operadora.nome}}</td>
