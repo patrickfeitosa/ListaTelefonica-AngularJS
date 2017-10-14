@@ -27,6 +27,11 @@ angular.module("listaTelefonica").directive("uiDate",function(){
 					return new Date(dateArray[2], dateArray[1]-1, dateArray[0]);
 				};
 			});
+
+			//Utilização do Formatters para criação de um array de filtros usando a injeção do $filter
+			ctrl.$formatters.push(function(value){
+				return $filter("date")(value, "dd/MM/yyyy");
+			});
 		}
 	};
 })
