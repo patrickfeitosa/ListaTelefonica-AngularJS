@@ -1,4 +1,4 @@
-	<div class="jumbotron" ng-controller="listaTelefonicaController">
+	<div class="jumbotron">
 		<h3>{{app}}</h3>
 
 		<!-- Bloco tratando a parte de Diretiva para erro com o backend
@@ -7,6 +7,7 @@
 		-->
 
 		
+		<!--Bloco tratando o uso de Accordion
 		<ui-accordions>
 			<ui-accordion title="Primeiro Accordion">
 				Teste de conteudo do primeiro accordion
@@ -15,29 +16,27 @@
 			<ui-accordion title="Segundo Accordion">
 				Teste de conteudo do segundo accordion
 			</ui-accordion>	
-		</ui-accordions>
+		</ui-accordions> -->
 
-	</hr>
+		<input type="text" class="form-control" ng-model="criterioDeBusca" placeholder="O que você está buscando ?"/>
+		<table ng-show="contatos.length > 0" class="table table-striped">
+			<tr>
+				<th></th>				
+				<th>Serial</th>
+				<th><a href="" ng-click="ordernarPor('nome')">Nome</a></th>
+				<th><a href="" ng-click="ordernarPor('telefone')">Telefone</a></th>
+				<th>Operadora</th>
+				<th>Data</th>
+			</tr>
 
-	<input type="text" class="form-control" ng-model="criterioDeBusca" placeholder="O que você está buscando ?">
-	<table ng-show="contatos.length > 0" class="table table-striped">
-		<tr>
-			<th></th>				
-			<th>Serial</th>
-			<th><a href="" ng-click="ordernarPor('nome')">Nome</a></th>
-			<th><a href="" ng-click="ordernarPor('telefone')">Telefone</a></th>
-			<th>Operadora</th>
-			<th>Data</th>
-		</tr>
-
-		<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca |orderBy:criterioDeOrdenacao:direcaoOrdenacao">
-			<td><input type="checkbox" ng-model="contato.selecionado"></td>		
-			<td>{{contato.serial}}</td>		
-			<td>{{contato.nome | name | ellipsis:10}}</td>
-			<td>{{contato.telefone}}</td>
-			<td>{{contato.operadora.nome}}</td>
-			<td>{{contato.data | date:'dd/MM/yyyy'}}</td>
-		</tr>
+			<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca |orderBy:criterioDeOrdenacao:direcaoOrdenacao">
+				<td><input type="checkbox" ng-model="contato.selecionado"/></td>		
+				<td>{{contato.serial}}</td>		
+				<td><a href="#/detalhesContato/{{contato.id}}">{{contato.nome | name | ellipsis:10}}</a></td>
+				<td>{{contato.telefone}}</td>
+				<td>{{contato.operadora.nome}}</td>
+				<td>{{contato.data | date:'dd/MM/yyyy'}}</td>
+			</tr>
 
 			<!-- Outro metodo para repetição usando o objeto
 			<tr ng-repeat="contato in contatos">
@@ -47,41 +46,6 @@
 			</tr>-->
 		</table>
 
-		<hr/>
-		
-		<form name="formContato">
-			<input type="text" class="form-control" ng-model="contato.nome" name="nome" ng-required="true" ng-minlength="10" placeholder="Nome">
-			<input type="text" class="form-control" ng-model="contato.telefone" name="telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" placeholder="Telefone">
-			<input type="text" 	class="form-control" ng-model="contato.data" name="data" ng-required="true" placeholder="Data" ui-date>
+		<a href="#/novoContato" class="btn btn-primary btn-block"> Novo Contato </a>
 
-			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome + ' (' + (operadora.preco | currency) + ')' group by operadora.categoria for operadora in operadoras | orderBy:'nome'">
-				<option value="">Selecione uma Operadora !</option>
-			</select>
-		</form>
-
-		<div ng-show="formContato.nome.$dirty" ng-messages="formContato.nome.$error">
-			<div ng-message="required"  class="alert alert-danger">
-				Por favor, preencha o campo nome!
-			</div>
-
-			<div ng-message="minlength"  class="alert alert-danger">
-				O campo nome deve conter no mínimo 10 caracteres.
-			</div>
-		</div>
-
-		<div ng-show="formContato.telefone.$dirty" ng-messages="formContato.telefone.$error">
-			<div ng-message="required" class="alert alert-danger">
-				Por favor, preencha o campo telefone!
-			</div>
-
-			<div ng-message="pattern" class="alert alert-danger">
-				O campo telefone deve ter o formato 99999-9999
-			</div>
-		</div>
-
-		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="formContato.$invalid">Adicionar Contato</button>
-		
-		<!-- Remoção do botão de Remover contatos
-			<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar Contato</button>-->
-
-		</div>
+	</div>

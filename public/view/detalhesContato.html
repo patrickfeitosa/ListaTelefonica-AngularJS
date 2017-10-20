@@ -1,0 +1,20 @@
+<div class="jumbotron">
+
+	<table class="table table-striped">
+
+		<tr>
+			<td>Nome</td>
+			<td>Telefone</td>
+			<td>Data</td>
+		</tr>
+
+		<tr>
+			<td>{{contato.nome}}</td>
+			<td>{{contato.telefone}}</td>
+			<td>{{contato.data | date: "dd/MM/yyyy"}}</td>
+		</tr>
+	</table>
+
+	<a class="btn btn-primary btn-block" href="#/contatos"> Voltar </a>
+
+</div>

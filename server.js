@@ -7,9 +7,9 @@ app.use(express.static(__dirname + '/static'));
 app.use(express.bodyParser());
 
 var contatos = [
-{nome: "Bruno da SILVA", telefone: "9999-2222", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
-{nome: "Sandra de andrade", telefone: "9999-3333", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
-{nome: "Mariana rosa", telefone: "9999-9999", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}}
+{id: 1, nome: "Bruno da SILVA", telefone: "9999-2222", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
+{id: 2, nome: "Sandra de andrade", telefone: "9999-3333", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
+{id: 3, nome: "Mariana rosa", telefone: "9999-9999", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}}
 ];
 var operadoras = [
 {nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
@@ -32,6 +32,15 @@ app.get('/contatos', function(req, res) {
 	res.json(contatos);
 });
 
+//Selecionando contato pelo ID
+contatos.forEach(function(item){	
+	var string = '/contatos/' + item.id;
+
+	app.get(string, function(req, res) {
+		res.json(item);
+	});
+});
+
 app.post('/contatos', function(req, res) {
 	contatos.push(req.body);
 	res.json(true);
@@ -50,8 +59,9 @@ var path = require('path');
 
 var contentTypes = {
 	'html' : 'text/html',
-	'css'  : 'text/css',
-	'js'   : 'text/javascript'
+	'css'  : 'application/x-pointplus',
+	'js'   : 'text/javascript',
+	'ico'  : 'image/x-icon'
 };
 
 http.createServer(function (pedido, resposta) {
