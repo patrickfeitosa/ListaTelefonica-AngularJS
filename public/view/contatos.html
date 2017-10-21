@@ -18,7 +18,7 @@
 			</ui-accordion>	
 		</ui-accordions> -->
 
-		<input type="text" class="form-control" ng-model="criterioDeBusca" placeholder="O que você está buscando ?"/>
+		<input type="text" class="form-control" ng-model="criterioDeBusca" ng-model-options="{onUpdate: 'default blur', debounce:{default: 500, blur:0}}" placeholder="O que você está buscando ?"/>
 		<table ng-show="contatos.length > 0" class="table table-striped">
 			<tr>
 				<th></th>				
@@ -32,7 +32,7 @@
 			<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca |orderBy:criterioDeOrdenacao:direcaoOrdenacao">
 				<td><input type="checkbox" ng-model="contato.selecionado"/></td>		
 				<td>{{contato.serial}}</td>		
-				<td><a href="#/detalhesContato/{{contato.id + 1}}">{{contato.nome | name | ellipsis:10}}</a></td>
+				<td><a href="#/detalhesContato/{{contato.id}}">{{contato.nome | name | ellipsis:10}}</a></td>
 				<td>{{contato.telefone}}</td>
 				<td>{{contato.operadora.nome}}</td>
 				<td>{{contato.data | date:'dd/MM/yyyy'}}</td>
